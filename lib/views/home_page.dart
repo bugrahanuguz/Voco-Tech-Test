@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:voco_tech_test/controllers/users_list_controller.dart';
+import 'package:voco_tech_test/widgets/homepage/user_card.dart';
 
 class HomePage extends ConsumerWidget {
   const HomePage({super.key});
@@ -13,18 +14,35 @@ class HomePage extends ConsumerWidget {
       controller.getUserList('2');
     }
     return Scaffold(
-      body: SafeArea(
-        child: ListView.builder(
-          itemCount: controller.userList.length,
-          itemBuilder: (context, index) {
-            final user = controller.userList[index];
-            return ListTile(
-              title: Text('${user.firstName} ${user.lastName}'),
-              subtitle: Text(user.email!),
-            );
-          },
+      appBar: buildHomePageAppBar(),
+      body: GridView.builder(
+        padding: const EdgeInsets.symmetric(horizontal: 8),
+        itemCount: controller.userList.length,
+        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+          mainAxisSpacing: 12,
+          crossAxisSpacing: 12,
+          crossAxisCount: 2,
+          childAspectRatio: 4.5 / 5,
         ),
+        itemBuilder: (context, index) {
+          final user = controller.userList[index];
+          return HomePageUserCard(user: user);
+        },
       ),
     );
   }
+
+  AppBar buildHomePageAppBar() {
+    return AppBar(
+      backgroundColor: Colors.transparent,
+      title: const Center(
+          child: Text("Kullanıcılar",
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 20,
+                fontWeight: FontWeight.w600,
+              ))),
+    );
+  }
 }
+
