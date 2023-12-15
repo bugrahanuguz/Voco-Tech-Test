@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:voco_tech_test/controllers/login_controllers.dart';
 import 'package:voco_tech_test/widgets/constants/colors.dart';
 
 class LoginButton extends StatelessWidget {
   const LoginButton({
     super.key,
-    required GlobalKey<FormState> formKey,
+    required GlobalKey<FormState> formKey, required this.loginController,
   }) : _formKey = formKey;
-
+  final LoginController loginController;
   final GlobalKey<FormState> _formKey;
 
   @override
